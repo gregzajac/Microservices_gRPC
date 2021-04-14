@@ -1,0 +1,4 @@
+flask
+grpcio-tools
+jinja2
+pytest
