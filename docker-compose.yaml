@@ -2,15 +2,15 @@ version: "3.7"
 
 services:
   marketplace:
-    build:
-      context: .
-      dockerfile: marketplace/Dockerfile
+    # DOCKER_BUILDKIT=1 docker build . -f marketplace/Dockerfile \
+    #                   -t marketplace --secret id=ca.key,src=ca.key  
+    image: marketplace
     environment:
       RECOMMENDATIONS_HOST: recommendations
     ports:
       - 5000:5000
     
   recommendations:
-    build:
-      context: .
-      dockerfile: recommendations/Dockerfile
+    # DOCKER_BUILDKIT=1 docker build . -f recommendations/Dockerfile \
+    #                   -t marketplace --secret id=ca.key,src=ca.key    
+    image: recommendations
