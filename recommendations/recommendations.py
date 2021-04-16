@@ -1,5 +1,6 @@
 import random
 from concurrent import futures
+from signal import SIGTERM, signal
 
 import grpc
 from grpc_interceptor import ExceptionToStatusInterceptor
@@ -50,6 +51,14 @@ def serve():
     add_RecommendationsServicer_to_server(RecommendationService(), server)
     server.add_insecure_port("[::]:50051")
     server.start()
+
+    def handle_sigterm(*_):
+        print("Received shutdown signal")
+        all_rpcs_done_event = server.stop(30)
+        all_rpcs_done_event.wait(30)
+        print("Shut down gracefully")
+
+    signal(SIGTERM, handle_sigterm)
     server.wait_for_termination()
 
 
