@@ -1,5 +1,6 @@
-from recommendations import RecommendationService
 from recommendations_pb2 import BookCategory, RecommendationRequest
+
+from recommendations import RecommendationService
 
 
 def test_recommendations():
